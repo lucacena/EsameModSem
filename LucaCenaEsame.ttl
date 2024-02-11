@@ -1,0 +1,1535 @@
+@prefix : <http://www.modsem.org/ontologies/FootballPlayerOntology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@base <http://www.modsem.org/ontologies/FootballPlayerOntology#> .
+
+<http://www.modsem.org/ontologies/FootballPlayerOntology> rdf:type owl:Ontology ;
+                                                           dc:creator "Luca Cena" ;
+                                                           dc:date "05/02/2024" ;
+                                                           dc:description "Ontologia finalizzata a descrivere le carriere individuali dei calciatori"@it ;
+                                                           dc:title "Football Player Ontology"@en ;
+                                                           vann:preferredNamespacePrefix "http://www.modsem.org/ontologies/FootballPlayerOntology#" ,
+                                                                                         "mgo" ;
+                                                           rdfs:label "FootballPlayerOntology" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology/preferredNamedspaceUri
+<http://www.modsem.org/ontologies/FootballPlayerOntology/preferredNamedspaceUri> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#note
+<http://www.w3.org/2004/02/skos/core#note> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#affronta
+:affronta rdf:type owl:ObjectProperty ,
+                   owl:IrreflexiveProperty ;
+          rdfs:domain :Giocatore ;
+          rdfs:range :Giocatore ;
+          rdfs:comment "un giocatore affronta un altro giocatore se giocano stessa partita"@it ;
+          rdfs:label "affronta"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#carrieraInCompetizione
+:carrieraInCompetizione rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Giocatore ;
+                        rdfs:range :Competizione ;
+                        owl:propertyChainAxiom ( :haGiocatoPartita
+                                                 :partitaInCompetizione
+                                               ) ;
+                        rdfs:comment "un giocatore ha giocato in una competizione, attraverso le due proprietà haGiocatoPartita e PartitaInCompetizione"@it ;
+                        rdfs:label "carriera in competizione"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#giocataIn
+:giocataIn rdf:type owl:ObjectProperty ,
+                    owl:AsymmetricProperty ;
+           rdfs:domain :Competizione ;
+           rdfs:range :Mondo ;
+           rdfs:comment "in che luogo si gioca una competizione"@it ;
+           rdfs:label "giocata in"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#haGiocatoIn
+:haGiocatoIn rdf:type owl:ObjectProperty ;
+             owl:inverseOf :haGiocatore ;
+             rdfs:domain :Giocatore ;
+             rdfs:range :Squadra ;
+             rdfs:comment "indica in che squadra ha giocato un giocatore, inversa di haGiocatore"@it ;
+             rdfs:label "ha giocato in"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#haGiocatoPartita
+:haGiocatoPartita rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Giocatore ;
+                  rdfs:range :Partita ;
+                  rdfs:comment "specifica una particolare partita giocata da un giocatore"@it ;
+                  rdfs:label "ha giocato partita"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#haGiocatore
+:haGiocatore rdf:type owl:ObjectProperty ;
+             rdfs:domain :Squadra ;
+             rdfs:range :Giocatore ;
+             rdfs:comment "una squadra ha dei giocatori"@it ;
+             rdfs:label "ha giocatore"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#haRuolo
+:haRuolo rdf:type owl:ObjectProperty ;
+         rdfs:domain :Giocatore ;
+         rdfs:range :Ruolo ;
+         rdfs:comment "ogni giocatore ha un ruolo, obbligatoriamente tra portiere, difensore, centrocampista e attaccante"@it ;
+         rdfs:label "ha ruolo"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#haValoreMercatoMaggiore
+:haValoreMercatoMaggiore rdf:type owl:ObjectProperty ,
+                                  owl:TransitiveProperty ;
+                         rdfs:domain :Giocatore ;
+                         rdfs:range :Giocatore ;
+                         rdfs:comment "indica se giocatore ha valore di mercato maggiore di un altro"@it ;
+                         rdfs:label "ha valore mercato maggiore"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#haVintoCompetizione
+:haVintoCompetizione rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Giocatore ;
+                     rdfs:range :Competizione ;
+                     rdfs:comment "competizione vinta da un giocatore"@it ;
+                     rdfs:label "ha vinto competizione"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#haVintoPremio
+:haVintoPremio rdf:type owl:ObjectProperty ;
+               rdfs:domain :Giocatore ;
+               rdfs:range :Premio ;
+               rdfs:comment "un giocatore vince premio"@it ;
+               rdfs:label "ha vinto premio"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#partecipaACompetizione
+:partecipaACompetizione rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Squadra ;
+                        rdfs:range :Competizione ;
+                        rdfs:comment "una squadra partecipa ad una competizione"@it ;
+                        rdfs:label "partecipa a competizione"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#partitaInCompetizione
+:partitaInCompetizione rdf:type owl:ObjectProperty ,
+                                owl:FunctionalProperty ;
+                       rdfs:domain :Partita ;
+                       rdfs:range :Competizione ;
+                       rdfs:comment "una partita giocata in una certa competizione"@it ;
+                       rdfs:label "partita in competizione"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#posizioneInSquadra
+:posizioneInSquadra rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Ruolo ;
+                    rdfs:range :Squadra ;
+                    rdfs:comment "è ruolo occupato da giocatore in squadra, all'interno della stessa squadra posso avere giocatori con stesso ruolo e un giocatore può aver ricoperto ruoli diversi in squadre diverse"@it ;
+                    rdfs:label "posizione in squadra"@it .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#anniCarriera
+:anniCarriera rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Giocatore ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "gli anni di carriera di un giocatore"@it ;
+              rdfs:label "anni carriera"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#goalSegnati
+:goalSegnati rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Giocatore ;
+             rdfs:range xsd:integer ;
+             rdfs:comment "il numero di gol segnati in carriera da giocatore"@it ;
+             rdfs:label "goal segnati"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#nazionalità
+:nazionalità rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Giocatore ;
+             rdfs:range xsd:string ;
+             rdfs:comment "la nazionalità di un giocatore"@it ;
+             rdfs:label "nazionalità"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#nomeGiocatore
+:nomeGiocatore rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Giocatore ;
+               rdfs:range xsd:string ;
+               rdfs:comment "il nome completo di un giocatore"@it ;
+               rdfs:label "nome giocatore"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#trofeiVinti
+:trofeiVinti rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Giocatore ;
+             rdfs:range xsd:integer ;
+             rdfs:comment "somma dei trofei vinti da un giocatore"@it ;
+             rdfs:label "trofei vinti"@it .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Attaccante
+:Attaccante rdf:type owl:Class ;
+            rdfs:subClassOf :Ruolo ;
+            rdfs:comment "Ruolo di attaccante che giocatore può ricoprire"@it ;
+            rdfs:label "Attaccante"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Campione_Assoluto
+:Campione_Assoluto rdf:type owl:Class ;
+                   owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :haVintoPremio ;
+                                                                owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass :Premio
+                                                              ]
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :trofeiVinti ;
+                                                                owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                     owl:onDatatype xsd:integer ;
+                                                                                     owl:withRestrictions ( [ xsd:minExclusive 40
+                                                                                                            ]
+                                                                                                          )
+                                                                                   ]
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ] ;
+                   rdfs:subClassOf :Top_player ;
+                   rdfs:comment "giocatore che in carriera ha vinto almeno 2 premi e che in carriera ha vinto un numero di trofei maggiore di 40"@it ;
+                   rdfs:label "Campione assoluto"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Centrocampista
+:Centrocampista rdf:type owl:Class ;
+                rdfs:subClassOf :Ruolo ;
+                rdfs:comment "Ruolo di centrocampista che giocatore può ricoprire"@it ;
+                rdfs:label "Centrocampista"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Competizione
+:Competizione rdf:type owl:Class ;
+              owl:equivalentClass <https://dbpedia.org/ontology/SoccerLeague> ;
+              rdfs:comment "Coppe e/o campionati a cui più squadre partecipano"@it ;
+              rdfs:label "Competizione"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Competizione_continentale
+:Competizione_continentale rdf:type owl:Class ;
+                           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :giocataIn ;
+                                                 owl:someValuesFrom :Continente
+                                               ] ;
+                           rdfs:subClassOf :Competizione_mondiale ;
+                           rdfs:comment "manifestazione sportiva giocata sul territorio del continente"@it ;
+                           rdfs:label "Competizione continentale"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Competizione_mondiale
+:Competizione_mondiale rdf:type owl:Class ;
+                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                             owl:onProperty :giocataIn ;
+                                             owl:someValuesFrom :Mondo
+                                           ] ;
+                       rdfs:subClassOf :Competizione ;
+                       rdfs:comment "manifestazione sportiva giocata a livello mondiale"@it ;
+                       rdfs:label "Competizione mondiale"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Competizione_nazionale
+:Competizione_nazionale rdf:type owl:Class ;
+                        owl:equivalentClass [ rdf:type owl:Restriction ;
+                                              owl:onProperty :giocataIn ;
+                                              owl:someValuesFrom :Paese
+                                            ] ;
+                        rdfs:subClassOf :Competizione_continentale ;
+                        rdfs:comment "manifestazione sportiva giocata a livello nazionale"@it ;
+                        rdfs:label "Competizione nazionale"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Continente
+:Continente rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Class ;
+                                  owl:oneOf ( :Africa
+                                              :America
+                                              :Antartide
+                                              :Asia
+                                              :Europa
+                                              :Oceania
+                                            )
+                                ] ;
+            rdfs:subClassOf :Mondo ;
+            rdfs:comment "Luogo fisico tra i continenti"@it ;
+            rdfs:label "Continente"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Difensore
+:Difensore rdf:type owl:Class ;
+           rdfs:subClassOf :Ruolo ;
+           rdfs:comment "Ruolo di difensore che giocatore può ricoprire"@it ;
+           rdfs:label "Difensore"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Giocatore
+:Giocatore rdf:type owl:Class ;
+           owl:equivalentClass <https://dbpedia.org/ontology/SoccerPlayer> ;
+           rdfs:comment "persona che gioca a calcio"@it ;
+           rdfs:label "Giocatore"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Giocatore_Esperto
+:Giocatore_Esperto rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :anniCarriera ;
+                                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                              owl:onDatatype xsd:integer ;
+                                                              owl:withRestrictions ( [ xsd:minInclusive 10
+                                                                                     ]
+                                                                                   )
+                                                            ]
+                                       ] ;
+                   rdfs:subClassOf :Giocatore ;
+                   owl:disjointWith :Giocatore_Inesperto ;
+                   rdfs:comment "giocatore che ha accumulato almeno 10 anni di carriera"@it ;
+                   rdfs:label "Giocatore esperto"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Giocatore_Inesperto
+:Giocatore_Inesperto rdf:type owl:Class ;
+                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                           owl:onProperty :anniCarriera ;
+                                           owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                owl:onDatatype xsd:integer ;
+                                                                owl:withRestrictions ( [ xsd:maxExclusive 10
+                                                                                       ]
+                                                                                     )
+                                                              ]
+                                         ] ;
+                     rdfs:subClassOf :Giocatore ;
+                     rdfs:comment "giocatore che ha accumulato meno di 10 anni di carriera"@it ;
+                     rdfs:label "Giocatore inesperto"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Goleador
+:Goleador rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :haRuolo ;
+                                                       owl:someValuesFrom :Attaccante
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :goalSegnati ;
+                                                       owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                            owl:onDatatype xsd:integer ;
+                                                                            owl:withRestrictions ( [ xsd:minExclusive 250
+                                                                                                   ]
+                                                                                                 )
+                                                                          ]
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
+          rdfs:subClassOf :Giocatore ;
+          rdfs:comment "giocatore che gioca come attaccante e ha segnato almeno 250 gol"@it ;
+          rdfs:label "Goleador"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Goleador_Vincente
+:Goleador_Vincente rdf:type owl:Class ;
+                   owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :haRuolo ;
+                                                                owl:someValuesFrom :Attaccante
+                                                              ]
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :haVintoCompetizione ;
+                                                                owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass :Competizione
+                                                              ]
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :goalSegnati ;
+                                                                owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                     owl:onDatatype xsd:integer ;
+                                                                                     owl:withRestrictions ( [ xsd:minExclusive 250
+                                                                                                            ]
+                                                                                                          )
+                                                                                   ]
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ] ;
+                   rdfs:subClassOf :Goleador ;
+                   rdfs:comment "giocatore che gioca come attaccante, ha segnato almeno 250 gol e ha vinto almeno due competizioni"@it ;
+                   rdfs:label "Goieador vincente"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Mondo
+:Mondo rdf:type owl:Class .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Paese
+:Paese rdf:type owl:Class ;
+       rdfs:subClassOf :Continente ;
+       rdfs:comment "territorio fisicoi"@it ;
+       rdfs:label "Paese"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Partita
+:Partita rdf:type owl:Class ;
+         owl:equivalentClass <https://dbpedia.org/ontology/FootballMatch> ;
+         rdfs:comment "match in cui due squadre si affrontano"@it ;
+         rdfs:label "Partita"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Partita_Campionato
+:Partita_Campionato rdf:type owl:Class ;
+                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                          owl:onProperty :partitaInCompetizione ;
+                                          owl:someValuesFrom :Competizione_nazionale
+                                        ] ;
+                    rdfs:subClassOf :Partita_Europea ;
+                    rdfs:comment "partita riferita a competizione nazionale"@it ;
+                    rdfs:label "Partita campionato"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Partita_Europea
+:Partita_Europea rdf:type owl:Class ;
+                 owl:equivalentClass [ rdf:type owl:Restriction ;
+                                       owl:onProperty :partitaInCompetizione ;
+                                       owl:someValuesFrom :Competizione_continentale
+                                     ] ;
+                 rdfs:subClassOf :Partita ;
+                 rdfs:comment "partita giocata su territorio europeo e riferita a competizione europea"@it ;
+                 rdfs:label "Partita europea"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Portiere
+:Portiere rdf:type owl:Class ;
+          rdfs:subClassOf :Ruolo ;
+          rdfs:comment "Ruolo di portiere che giocatore può ricoprire"@it ;
+          rdfs:label "Portiere"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Premio
+:Premio rdf:type owl:Class ;
+        rdfs:comment "riconoscimento asseganto a giocatore"@it ;
+        rdfs:label "Premio"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Ruolo
+:Ruolo rdf:type owl:Class ;
+       rdfs:comment "ruolo occupato dal giocatore, sarà portiere, difensore, centrocampista oppure attaccante"@it ;
+       rdfs:label "Ruolo"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Squadra
+:Squadra rdf:type owl:Class ;
+         owl:equivalentClass <https://dbpedia.org/ontology/SoccerClub> ,
+                             [ rdf:type owl:Class ;
+                               owl:oneOf ( :Barcellona
+                                           :Borussia_Dortmund
+                                           :Inter
+                                           :Juventus
+                                           :Liverpool
+                                           :Manchester_City
+                                           :Manchester_United
+                                           :Milan
+                                           :Paris_Saint_Germain
+                                           :Real_Madrid
+                                         )
+                             ] ;
+         rdfs:comment "assocaciazione con finalità sportiva composta da giocatori"@it ;
+         rdfs:label "Squadra"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#SquadraVincente
+:SquadraVincente rdf:type owl:Class ;
+                 rdfs:subClassOf :Squadra ;
+                 rdfs:label "Squadra vincente"@it ,
+                            "squadra che ha avuto giocatori che hanno vinto competizioni in carriera"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Top_player
+:Top_player rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                  owl:onProperty :haVintoPremio ;
+                                  owl:someValuesFrom :Premio
+                                ] ;
+            rdfs:subClassOf :Giocatore ;
+            rdfs:comment "giocatore che in carriera ha vinto almeno un premio"@it ;
+            rdfs:label "Top player"@en .
+
+
+###  https://dbpedia.org/ontology/FootballMatch
+<https://dbpedia.org/ontology/FootballMatch> rdf:type owl:Class .
+
+
+###  https://dbpedia.org/ontology/SoccerClub
+<https://dbpedia.org/ontology/SoccerClub> rdf:type owl:Class .
+
+
+###  https://dbpedia.org/ontology/SoccerLeague
+<https://dbpedia.org/ontology/SoccerLeague> rdf:type owl:Class .
+
+
+###  https://dbpedia.org/ontology/SoccerPlayer
+<https://dbpedia.org/ontology/SoccerPlayer> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Africa
+:Africa rdf:type owl:NamedIndividual ,
+                 :Continente ;
+        rdfs:comment "continente chiamato Africa"@it ;
+        rdfs:label "Africa"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#America
+:America rdf:type owl:NamedIndividual ,
+                  :Continente ;
+         rdfs:comment "continente chiamato America"@it ;
+         rdfs:label "America"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Antartide
+:Antartide rdf:type owl:NamedIndividual ,
+                    :Continente ;
+           rdfs:comment "continente chiamato Antartide"@it ;
+           rdfs:label "Antartide"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Asia
+:Asia rdf:type owl:NamedIndividual ,
+               :Continente ;
+      rdfs:comment "continente chiamato Asia"@it ;
+      rdfs:label "Asia"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Barcellona
+:Barcellona rdf:type owl:NamedIndividual ;
+            owl:sameAs <https://www.wikidata.org/wiki/Q7156> ;
+            rdfs:comment "associazione calcistica chiamata Barcellona"@it ;
+            rdfs:label "Barcellona"@it .
+
+
+###  https://www.wikidata.org/wiki/Q7156
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Barella
+:Barella rdf:type owl:NamedIndividual ,
+                  :Giocatore ;
+         owl:sameAs <https://www.wikidata.org/wiki/Q20090225> ;
+         :haGiocatoIn :Inter ;
+         :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#Int_vs_Mil_23/24> ;
+         :haRuolo :centrocampistaInter ;
+         :haValoreMercatoMaggiore :Vlahovic ;
+         :haVintoCompetizione :Europei_2021 ;
+         :anniCarriera 10 ;
+         :goalSegnati 33 ;
+         :nazionalità "Italia" ;
+         :nomeGiocatore "Nicolò Barella" ;
+         :trofeiVinti 8 ;
+         rdfs:comment "giocatore chiamato Barella"@it ;
+         rdfs:label "Barella"@en .
+
+
+###  https://www.wikidata.org/wiki/Q20090225
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Bellingham
+:Bellingham rdf:type owl:NamedIndividual ,
+                     :Giocatore ;
+            owl:sameAs <https://www.wikidata.org/wiki/Q66241169> ;
+            :haGiocatoIn :Borussia_Dortmund ,
+                         :Real_Madrid ;
+            :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#Bar_vs_RealMad_23/24> ;
+            :haRuolo :attaccanteRealMadrid ,
+                     :centrocampistaBorussiaDortmund ,
+                     :centrocampistaRealMadrid ;
+            :anniCarriera 6 ;
+            :goalSegnati 46 ;
+            :nazionalità "Inghilterra" ;
+            :nomeGiocatore "Jude Bellingham" ;
+            :trofeiVinti 2 ;
+            rdfs:comment "giocatore chiamato Bellingham"@it ;
+            rdfs:label "Bellingham"@en .
+
+
+###  https://www.wikidata.org/wiki/Q66241169
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Borussia_Dortmund
+:Borussia_Dortmund rdf:type owl:NamedIndividual ;
+                   owl:sameAs <https://www.wikidata.org/wiki/Q41420> ;
+                   rdfs:comment "associazione calcistica chiamata Borussia Dortmund"@it ;
+                   rdfs:label "Borussia Dortmund"@en .
+
+
+###  https://www.wikidata.org/wiki/Q41420
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Capocannoniere
+:Capocannoniere rdf:type owl:NamedIndividual ,
+                         :Premio ;
+                owl:differentFrom :Pallone_oro ;
+                rdfs:comment "Premio individuale conseguito da calciatore per aver seganto più gol di tutti in certa competizione"@it ;
+                rdfs:label "Capocannoniere"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Europa
+:Europa rdf:type owl:NamedIndividual ,
+                 :Continente ;
+        rdfs:comment "continente chiamato Europa"@it ;
+        rdfs:label "Europa"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Europei_2016
+:Europei_2016 rdf:type owl:NamedIndividual ,
+                       :Competizione ;
+              owl:sameAs <https://www.wikidata.org/wiki/Q189571> ;
+              :giocataIn :Europa ;
+              rdfs:comment "gli europei del 2016 sono una competizione europea giocata nel 2016"@it ;
+              rdfs:label "Europei 2016"@it .
+
+
+###  https://www.wikidata.org/wiki/Q189571
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Europei_2021
+:Europei_2021 rdf:type owl:NamedIndividual ,
+                       :Competizione ;
+              owl:sameAs <https://www.wikidata.org/wiki/Q373501> ;
+              :giocataIn :Europa ;
+              rdfs:comment "gli europei del 2021 sono una competizione europea giocata nel 2021"@it ;
+              rdfs:label "Europei 2021"@it .
+
+
+###  https://www.wikidata.org/wiki/Q373501
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Francia
+:Francia rdf:type owl:NamedIndividual ,
+                  :Paese ;
+         rdfs:comment "paese chiamato Francia"@it ;
+         rdfs:label "Francia"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Haaland
+:Haaland rdf:type owl:NamedIndividual ,
+                  :Giocatore ;
+         owl:sameAs <https://www.wikidata.org/wiki/Q28967995> ;
+         :haGiocatoIn :Manchester_City ;
+         :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#Liv_vs_ManCity_22/23> ;
+         :haRuolo :attaccanteManCity ;
+         :haValoreMercatoMaggiore :Silva ;
+         :haVintoCompetizione <http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_22/23> ,
+                              <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_22/23> ;
+         :haVintoPremio :Capocannoniere ;
+         :anniCarriera 8 ;
+         :goalSegnati 206 ;
+         :nazionalità "Norvegia" ;
+         :nomeGiocatore "Erling Haaland" ;
+         :trofeiVinti 8 ;
+         rdfs:comment "giocatore chiamato Haaland"@it ;
+         rdfs:label "Haaland"@en .
+
+
+###  https://www.wikidata.org/wiki/Q28967995
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Inghilterra
+:Inghilterra rdf:type owl:NamedIndividual ,
+                      :Paese ;
+             rdfs:comment "paese chiamato Inghilterra"@it ;
+             rdfs:label "Inghilterra"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Inter
+:Inter rdf:type owl:NamedIndividual ;
+       owl:sameAs <https://www.wikidata.org/wiki/Q631> ;
+       rdfs:comment "associazione calcistica chiamata Inter"@it ;
+       rdfs:label "Inter"@en .
+
+
+###  https://www.wikidata.org/wiki/Q631
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Italia
+:Italia rdf:type owl:NamedIndividual ,
+                 :Paese ;
+        rdfs:comment "paese chiamato Italia"@it ;
+        rdfs:label "Italia"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Juventus
+:Juventus rdf:type owl:NamedIndividual ;
+          owl:sameAs <https://www.wikidata.org/wiki/Q1422> ;
+          rdfs:comment "associazione calcistica chiamata Juventus"@it ;
+          rdfs:label "Juventus"@en .
+
+
+###  https://www.wikidata.org/wiki/Q1422
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Leao
+:Leao rdf:type owl:NamedIndividual ,
+               :Giocatore ;
+      owl:sameAs <https://www.wikidata.org/wiki/Q30055335> ;
+      :haGiocatoIn :Milan ;
+      :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#Int_vs_Mil_23/24> ;
+      :haRuolo :attaccanteMilan ;
+      :haValoreMercatoMaggiore :Barella ;
+      :anniCarriera 7 ;
+      :goalSegnati 72 ;
+      :nazionalità "Portogallo" ;
+      :nomeGiocatore "Rafael Leao" ;
+      :trofeiVinti 2 ;
+      rdfs:comment "giocatore chiamato Leao"@it ;
+      rdfs:label "Leao"@en .
+
+
+###  https://www.wikidata.org/wiki/Q30055335
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Liverpool
+:Liverpool rdf:type owl:NamedIndividual ;
+           owl:sameAs <https://www.wikidata.org/wiki/Q1130849> ;
+           rdfs:comment "associazione calcistica chiamata Liverpool"@it ;
+           rdfs:label "Liverpool"@en .
+
+
+###  https://www.wikidata.org/wiki/Q1130849
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Maguire
+:Maguire rdf:type owl:NamedIndividual ,
+                  :Giocatore ;
+         owl:sameAs <https://www.wikidata.org/wiki/Q165772> ;
+         :haGiocatoIn :Manchester_United ;
+         :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#Liv_vs_ManUtd_19/20> ;
+         :haRuolo :difensoreManUtd ;
+         :anniCarriera 14 ;
+         :goalSegnati 29 ;
+         :nazionalità "Inghilterra" ;
+         :nomeGiocatore "Harry Maguire" ;
+         :trofeiVinti 1 ;
+         rdfs:comment "giocatore chiamato Maguire"@it ;
+         rdfs:label "Maguire"@en .
+
+
+###  https://www.wikidata.org/wiki/Q165772
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Manchester_City
+:Manchester_City rdf:type owl:NamedIndividual ;
+                 owl:sameAs <https://www.wikidata.org/wiki/Q50602> ;
+                 rdfs:comment "associazione calcistica chiamata Manchester City"@it ;
+                 rdfs:label "Manchester City"@en .
+
+
+###  https://www.wikidata.org/wiki/Q50602
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Manchester_United
+:Manchester_United rdf:type owl:NamedIndividual ;
+                   owl:sameAs <https://www.wikidata.org/wiki/Q18656> ;
+                   rdfs:comment "associazione calcistica chiamata Manchester United"@it ;
+                   rdfs:label "Manchester United"@en .
+
+
+###  https://www.wikidata.org/wiki/Q18656
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Mbappè
+:Mbappè rdf:type owl:NamedIndividual ,
+                 :Giocatore ;
+        owl:sameAs <https://www.wikidata.org/wiki/Q21621995> ;
+        :haGiocatoIn :Paris_Saint_Germain ;
+        :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#ManCity_vs_PSG_21/22> ;
+        :haRuolo :attaccantePSG ;
+        :haValoreMercatoMaggiore :Messi ;
+        :haVintoCompetizione :Mondiali_2018 ;
+        :haVintoPremio :Capocannoniere ;
+        :anniCarriera 10 ;
+        :goalSegnati 273 ;
+        :nazionalità "Francia" ;
+        :nomeGiocatore "Kylian Mbappé" ;
+        :trofeiVinti 17 ;
+        rdfs:comment "giocatore chiamato Mbappé"@it ;
+        rdfs:label "Mbappé"@en .
+
+
+###  https://www.wikidata.org/wiki/Q21621995
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Messi
+:Messi rdf:type owl:NamedIndividual ,
+                :Giocatore ;
+       owl:sameAs <https://www.wikidata.org/wiki/Q615> ;
+       :haGiocatoIn :Barcellona ,
+                    :Paris_Saint_Germain ;
+       :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#ManCity_vs_PSG_21/22> ;
+       :haRuolo :attaccanteBarcellona ;
+       :haValoreMercatoMaggiore :Maguire ;
+       :haVintoCompetizione :Mondiali_2022 ,
+                            <http://www.modsem.org/ontologies/FootballPlayerOntology#Liga_18/19> ;
+       :haVintoPremio :Capocannoniere ,
+                      :Pallone_oro ;
+       :anniCarriera 20 ;
+       :goalSegnati 721 ;
+       :nazionalità "Argentina" ;
+       :nomeGiocatore "Lionel Messi" ;
+       :trofeiVinti 44 ;
+       rdfs:comment "giocatore chiamato Messi"@it ;
+       rdfs:label "Messi"@en .
+
+
+###  https://www.wikidata.org/wiki/Q615
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Milan
+:Milan rdf:type owl:NamedIndividual ;
+       owl:sameAs <https://www.wikidata.org/wiki/Q1543> ;
+       rdfs:comment "associazione calcistica chiamata Milan"@it ;
+       rdfs:label "Milan"@en .
+
+
+###  https://www.wikidata.org/wiki/Q1543
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Mondiali_2018
+:Mondiali_2018 rdf:type owl:NamedIndividual ,
+                        :Competizione ;
+               owl:sameAs <https://www.wikidata.org/wiki/Q170645> ;
+               :giocataIn :Mondo ;
+               rdfs:comment "competizione giocata a livello mondiale nel 2018"@it ;
+               rdfs:label "Mondiali 2018"@it .
+
+
+###  https://www.wikidata.org/wiki/Q170645
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Mondiali_2022
+:Mondiali_2022 rdf:type owl:NamedIndividual ,
+                        :Competizione ;
+               owl:sameAs <https://www.wikidata.org/wiki/Q284163> ;
+               owl:differentFrom <http://www.modsem.org/ontologies/FootballPlayerOntology#Serie_A_23/24> ;
+               :giocataIn :Mondo ;
+               rdfs:comment "competizione giocata a livello mondiale nel 2022"@it ;
+               rdfs:label "Mondiali 2022"@it .
+
+
+###  https://www.wikidata.org/wiki/Q284163
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Mondo
+:Mondo rdf:type owl:NamedIndividual ,
+                :Mondo .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Oceania
+:Oceania rdf:type owl:NamedIndividual ,
+                  :Continente ;
+         rdfs:comment "continente chiamato Oceania"@it ;
+         rdfs:label "Oceania"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Pallone_oro
+:Pallone_oro rdf:type owl:NamedIndividual ,
+                      :Premio ;
+             owl:sameAs <https://www.wikidata.org/wiki/Q166177> ;
+             rdfs:comment "premio individuale assegnato a giocatore che durante l'anno viene votato come il migliore al mondo"@it ;
+             rdfs:label "Pallone oro"@it .
+
+
+###  https://www.wikidata.org/wiki/Q166177
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Paris_Saint_Germain
+:Paris_Saint_Germain rdf:type owl:NamedIndividual ;
+                     owl:sameAs <https://www.wikidata.org/wiki/Q483020> ;
+                     rdfs:comment "associazione calcistica chiamata Paris saint Germain"@it ;
+                     rdfs:label "Paris Saint Germain"@en .
+
+
+###  https://www.wikidata.org/wiki/Q483020
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Real_Madrid
+:Real_Madrid rdf:type owl:NamedIndividual ;
+             owl:sameAs <https://www.wikidata.org/wiki/Q8682> ;
+             rdfs:comment "associazione calcistica chiamata Real Madrid"@it ;
+             rdfs:label "Real Madrid"@en .
+
+
+###  https://www.wikidata.org/wiki/Q8682
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Ronaldo
+:Ronaldo rdf:type owl:NamedIndividual ,
+                  :Giocatore ;
+         owl:sameAs <https://www.wikidata.org/wiki/Q11571> ;
+         :haGiocatoIn :Manchester_United ,
+                      :Real_Madrid ;
+         :haRuolo :attaccanteRealMadrid ;
+         :haVintoCompetizione :Europei_2016 ,
+                              <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_08/09> ;
+         :haVintoPremio :Capocannoniere ,
+                        :Pallone_oro ;
+         :anniCarriera 22 ;
+         :goalSegnati 739 ;
+         :nazionalità "Portogallo" ;
+         :nomeGiocatore "Cristiano Ronaldo" ;
+         :trofeiVinti 35 ;
+         rdfs:comment "giocatore chiamato Ronaldo"@it ;
+         rdfs:label "Ronaldo"@en .
+
+
+###  https://www.wikidata.org/wiki/Q11571
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Salah
+:Salah rdf:type owl:NamedIndividual ,
+                :Giocatore ;
+       owl:sameAs <https://www.wikidata.org/wiki/Q1354960> ;
+       :haGiocatoIn :Liverpool ;
+       :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#Liv_vs_ManCity_22/23> ,
+                         <http://www.modsem.org/ontologies/FootballPlayerOntology#Liv_vs_ManUtd_19/20> ;
+       :haRuolo :attaccanteLiverpool ;
+       :haVintoCompetizione <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_19/20> ;
+       :haVintoPremio :Capocannoniere ;
+       :anniCarriera 15 ;
+       :goalSegnati 281 ;
+       :nazionalità "Egitto" ;
+       :nomeGiocatore "Mohamed Salah" ;
+       :trofeiVinti 10 ;
+       rdfs:comment "giocatore chiamato Salah"@it ;
+       rdfs:label "Salah"@en .
+
+
+###  https://www.wikidata.org/wiki/Q1354960
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Silva
+:Silva rdf:type owl:NamedIndividual ,
+                :Giocatore ;
+       owl:sameAs <https://www.wikidata.org/wiki/Q15521306> ;
+       :haGiocatoIn :Manchester_City ;
+       :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#ManCity_vs_PSG_21/22> ;
+       :haRuolo :centrocampistaManCity ;
+       :haVintoCompetizione <http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_22/23> ,
+                            <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_22/23> ;
+       :anniCarriera 11 ;
+       :goalSegnati 97 ;
+       :nazionalità "Portogallo" ;
+       :nomeGiocatore "Bernardo Silva" ;
+       :trofeiVinti 20 ;
+       rdfs:comment "giocatore chiamato Silva"@it ;
+       rdfs:label "Silva"@en .
+
+
+###  https://www.wikidata.org/wiki/Q15521306
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Sommer
+:Sommer rdf:type owl:NamedIndividual ,
+                 :Giocatore ;
+        :haRuolo :portiereInter ;
+        :anniCarriera 18 ;
+        :nazionalità "Svizzera" ;
+        :nomeGiocatore "Yann Sommer" ;
+        :trofeiVinti 9 ;
+        rdfs:comment "giocatore chiamato Sommer"@it ;
+        rdfs:label "Sommer"@en .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Spagna
+:Spagna rdf:type owl:NamedIndividual ,
+                 :Paese ;
+        rdfs:comment "paese chiamato Spagna"@it ;
+        rdfs:label "Spagna"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Ter_Stegen
+:Ter_Stegen rdf:type owl:NamedIndividual ,
+                     :Giocatore ;
+            owl:sameAs <https://www.wikidata.org/wiki/Q160472> ;
+            :haGiocatoIn :Barcellona ;
+            :haGiocatoPartita <http://www.modsem.org/ontologies/FootballPlayerOntology#Bar_vs_RealMad_23/24> ;
+            :haRuolo :portiereBarcellona ;
+            :anniCarriera 14 ;
+            :goalSegnati 0 ;
+            :nazionalità "Germania" ;
+            :nomeGiocatore "Marc-André ter Stegen" ;
+            :trofeiVinti 18 ;
+            rdfs:comment "giocatore chiamato Ter Stegen"@it ;
+            rdfs:label "Ter Stegen"@en .
+
+
+###  https://www.wikidata.org/wiki/Q160472
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Vlahovic
+:Vlahovic rdf:type owl:NamedIndividual ,
+                   :Giocatore ;
+          owl:sameAs <https://www.wikidata.org/wiki/Q23762815> ;
+          :haGiocatoIn :Juventus ;
+          :haRuolo :attaccanteJuventus ;
+          :anniCarriera 9 ;
+          :goalSegnati 107 ;
+          :nazionalità "Serbia" ;
+          :nomeGiocatore "Dusan Vlahovic" ;
+          :trofeiVinti 3 ;
+          rdfs:comment "giocatore chiamato Vlahovic"@it ;
+          rdfs:label "Vlahovic"@it .
+
+
+###  https://www.wikidata.org/wiki/Q23762815
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#attaccanteBarcellona
+:attaccanteBarcellona rdf:type owl:NamedIndividual ,
+                               :Attaccante ;
+                      :posizioneInSquadra :Barcellona ;
+                      rdfs:comment "attaccante nella squadra Barcellona è ruolo che un giocatore può avere"@it ;
+                      rdfs:label "attaccante Barcellona"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#attaccanteJuventus
+:attaccanteJuventus rdf:type owl:NamedIndividual ,
+                             :Attaccante ;
+                    :posizioneInSquadra :Juventus ;
+                    rdfs:comment "attaccante nella squadra Juventus è ruolo che un giocatore può avere"@it ;
+                    rdfs:label "attaccante Juventus"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#attaccanteLiverpool
+:attaccanteLiverpool rdf:type owl:NamedIndividual ,
+                              :Attaccante ;
+                     :posizioneInSquadra :Liverpool ;
+                     rdfs:comment "attaccante nella squadra Liverpool è ruolo che un giocatore può avere"@it ;
+                     rdfs:label "attaccante Liverpool"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#attaccanteManCity
+:attaccanteManCity rdf:type owl:NamedIndividual ,
+                            :Attaccante ;
+                   :posizioneInSquadra :Manchester_City ;
+                   rdfs:comment "attaccante nella squadra Manchester City è ruolo che un giocatore può avere"@it ;
+                   rdfs:label "attaccante Manchester City"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#attaccanteMilan
+:attaccanteMilan rdf:type owl:NamedIndividual ,
+                          :Attaccante ;
+                 :posizioneInSquadra :Milan ;
+                 rdfs:comment "attaccante nella squadra Milan è ruolo che un giocatore può avere"@it ;
+                 rdfs:label "attaccante Milan"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#attaccantePSG
+:attaccantePSG rdf:type owl:NamedIndividual ,
+                        :Attaccante ;
+               :posizioneInSquadra :Paris_Saint_Germain ;
+               rdfs:comment "attaccante nella squadra PSG è ruolo che un giocatore può avere"@it ;
+               rdfs:label "attaccante Paris Saint Germain"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#attaccanteRealMadrid
+:attaccanteRealMadrid rdf:type owl:NamedIndividual ,
+                               :Attaccante ;
+                      :posizioneInSquadra :Real_Madrid ;
+                      rdfs:comment "attaccante nella squadra Real Madrid è ruolo che un giocatore può avere"@it ;
+                      rdfs:label "attaccante Real Madrid"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#centrocampistaBorussiaDortmund
+:centrocampistaBorussiaDortmund rdf:type owl:NamedIndividual ,
+                                         :Centrocampista ;
+                                :posizioneInSquadra :Borussia_Dortmund ;
+                                rdfs:comment "centrocampista nella squadra Borussia Dortmund è ruolo che un giocatore può avere"@it ;
+                                rdfs:label "centrocampista Borussia Dortmund"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#centrocampistaInter
+:centrocampistaInter rdf:type owl:NamedIndividual ,
+                              :Centrocampista ;
+                     :posizioneInSquadra :Inter ;
+                     rdfs:comment "centrocampista nella squadra Inter è ruolo che un giocatore può avere"@it ;
+                     rdfs:label "centrocampista Inter"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#centrocampistaManCity
+:centrocampistaManCity rdf:type owl:NamedIndividual ,
+                                :Centrocampista ;
+                       :posizioneInSquadra :Manchester_City ;
+                       rdfs:comment "centrocampista Manchester City è ruolo che un giocatore può avere"@it ;
+                       rdfs:label "centrocampista Manchester City"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#centrocampistaRealMadrid
+:centrocampistaRealMadrid rdf:type owl:NamedIndividual ,
+                                   :Centrocampista ;
+                          :posizioneInSquadra :Real_Madrid ;
+                          rdfs:comment "centrocampista Real Madrid è ruolo che un giocatore può avere"@it ;
+                          rdfs:label "centrocampista Real Madrid"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#difensoreManUtd
+:difensoreManUtd rdf:type owl:NamedIndividual ,
+                          :Difensore ;
+                 :posizioneInSquadra :Manchester_United ;
+                 rdfs:comment "difensore Manchester United è ruolo che un giocatore può avere"@it ;
+                 rdfs:label "difensore Manchester United"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#portiereBarcellona
+:portiereBarcellona rdf:type owl:NamedIndividual ,
+                             :Portiere ;
+                    :posizioneInSquadra :Barcellona ;
+                    rdfs:comment "portiere Barcellona è ruolo che un giocatore può avere"@it ;
+                    rdfs:label "portiere Barcellona"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#portiereInter
+:portiereInter rdf:type owl:NamedIndividual ,
+                        :Portiere ;
+               :posizioneInSquadra :Inter ;
+               rdfs:comment "portiere Inter è ruolo che un giocatore può avere"@it ;
+               rdfs:label "portiere Inter"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Bar_vs_RealMad_23/24
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Bar_vs_RealMad_23/24> rdf:type owl:NamedIndividual ,
+                                                                                        :Partita ;
+                                                                               :partitaInCompetizione <http://www.modsem.org/ontologies/FootballPlayerOntology#Liga_23/24> ;
+                                                                               rdfs:comment "partita giocata tra squadre Barcellona e Real Madrid nella stagione 2023/2024"@it ;
+                                                                               rdfs:label "Bar vs Real Mad 23/24"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_21/22
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_21/22> rdf:type owl:NamedIndividual ,
+                                                                                          :Competizione ;
+                                                                                 owl:sameAs <https://www.wikidata.org/wiki/Q96621465> ;
+                                                                                 :giocataIn :Europa ;
+                                                                                 rdfs:comment "si riferisce alla competizione europea Champions League giocata nella stagione 2021/22"@it ;
+                                                                                 rdfs:label "Champions League 21/22"@en .
+
+
+###  https://www.wikidata.org/wiki/Q96621465
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_22/23
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_22/23> rdf:type owl:NamedIndividual ,
+                                                                                          :Competizione ;
+                                                                                 owl:sameAs <https://www.wikidata.org/wiki/Q106086340> ;
+                                                                                 :giocataIn :Europa ;
+                                                                                 rdfs:comment "si riferisce alla competizione europea Champions League giocata nella stagione 2022/23"@it ;
+                                                                                 rdfs:label "Champions League 22/23"@en .
+
+
+###  https://www.wikidata.org/wiki/Q106086340
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Int_vs_Mil_23/24
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Int_vs_Mil_23/24> rdf:type owl:NamedIndividual ,
+                                                                                    :Partita ;
+                                                                           :partitaInCompetizione <http://www.modsem.org/ontologies/FootballPlayerOntology#Serie_A_23/24> ;
+                                                                           rdfs:comment "partita giocata tra squadre Inter e Milan nella stagione 2023/2024" ;
+                                                                           rdfs:label "Int vs Mil 23/24"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Liga_18/19
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Liga_18/19> rdf:type owl:NamedIndividual ,
+                                                                              :Competizione ;
+                                                                     owl:sameAs <https://www.wikidata.org/wiki/Q50383829> ;
+                                                                     :giocataIn :Spagna ;
+                                                                     rdfs:comment "competizione chiamata Liga giocata in stagione 2018/2019"@it ;
+                                                                     rdfs:label "Liga 18/19"@it .
+
+
+###  https://www.wikidata.org/wiki/Q50383829
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Liga_23/24
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Liga_23/24> rdf:type owl:NamedIndividual ,
+                                                                              :Competizione ;
+                                                                     owl:sameAs <https://www.wikidata.org/wiki/Q117246391> ;
+                                                                     :giocataIn :Spagna ;
+                                                                     rdfs:comment "competizione chiamata Liga giocata in stagione 2023/2024"@it ;
+                                                                     rdfs:label "Liga 23/24"@it .
+
+
+###  https://www.wikidata.org/wiki/Q117246391
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Liv_vs_ManCity_22/23
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Liv_vs_ManCity_22/23> rdf:type owl:NamedIndividual ,
+                                                                                        :Partita ;
+                                                                               :partitaInCompetizione <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_22/23> ;
+                                                                               rdfs:comment "partita giocata tra squadre Liverpool e Manchester City nella stagione 2022/2023"@it ;
+                                                                               rdfs:label "Liv vs ManCity 22/23"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Liv_vs_ManUtd_19/20
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Liv_vs_ManUtd_19/20> rdf:type owl:NamedIndividual ,
+                                                                                       :Partita ;
+                                                                              :partitaInCompetizione <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_19/20> ;
+                                                                              rdfs:comment "partita giocata tra squadre Liverpool e Manchester United nella stagione 2019/2020"@it ;
+                                                                              rdfs:label "Liv vs ManUtd 19/20"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#ManCity_vs_PSG_21/22
+<http://www.modsem.org/ontologies/FootballPlayerOntology#ManCity_vs_PSG_21/22> rdf:type owl:NamedIndividual ,
+                                                                                        :Partita ;
+                                                                               :partitaInCompetizione <http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_21/22> ;
+                                                                               rdfs:comment "partita giocata tra squadre Manchester City e PSG nella stagione 2021/2022"@it ;
+                                                                               rdfs:label "ManCity vs PSG 21/22"@it .
+
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_08/09
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_08/09> rdf:type owl:NamedIndividual ,
+                                                                                        :Competizione ;
+                                                                               owl:sameAs <https://www.wikidata.org/wiki/Q186869> ;
+                                                                               :giocataIn :Inghilterra ;
+                                                                               rdfs:comment "competizione chiamata Premier League giocata in stagione 2008/2009"@it ;
+                                                                               rdfs:label "Premier League 08/09"@it .
+
+
+###  https://www.wikidata.org/wiki/Q186869
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_19/20
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_19/20> rdf:type owl:NamedIndividual ,
+                                                                                        :Competizione ;
+                                                                               owl:sameAs <https://www.wikidata.org/wiki/Q60439913> ;
+                                                                               :giocataIn :Inghilterra ;
+                                                                               rdfs:comment "competizione chiamata Premier League giocata in stagione 2019/2020"@it ;
+                                                                               rdfs:label "Premier League 19/20"@it .
+
+
+###  https://www.wikidata.org/wiki/Q60439913
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_22/23
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_22/23> rdf:type owl:NamedIndividual ,
+                                                                                        :Competizione ;
+                                                                               owl:sameAs <https://www.wikidata.org/wiki/Q111134726> ;
+                                                                               :giocataIn :Inghilterra ;
+                                                                               rdfs:comment "competizione chiamata Premier League giocata in stagione 2022/2023"@it ;
+                                                                               rdfs:label "Premier League 22/23"@it .
+
+
+###  https://www.wikidata.org/wiki/Q111134726
+
+###  http://www.modsem.org/ontologies/FootballPlayerOntology#Serie_A_23/24
+<http://www.modsem.org/ontologies/FootballPlayerOntology#Serie_A_23/24> rdf:type owl:NamedIndividual ,
+                                                                                 :Competizione ;
+                                                                        owl:sameAs <https://www.wikidata.org/wiki/Q116998560> ;
+                                                                        :giocataIn :Italia ;
+                                                                        rdfs:comment "competizione chiamata Serie A giocata in stagione 2023/2024"@it ;
+                                                                        rdfs:label "Serie A 23/24"@it .
+
+
+###  https://www.wikidata.org/wiki/Q116998560
+
+###  https://www.wikidata.org/wiki/Q106086340
+<https://www.wikidata.org/wiki/Q106086340> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q111134726
+<https://www.wikidata.org/wiki/Q111134726> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q1130849
+<https://www.wikidata.org/wiki/Q1130849> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q11571
+<https://www.wikidata.org/wiki/Q11571> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q116998560
+<https://www.wikidata.org/wiki/Q116998560> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q117246391
+<https://www.wikidata.org/wiki/Q117246391> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q1354960
+<https://www.wikidata.org/wiki/Q1354960> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q1422
+<https://www.wikidata.org/wiki/Q1422> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q1543
+<https://www.wikidata.org/wiki/Q1543> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q15521306
+<https://www.wikidata.org/wiki/Q15521306> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q160472
+<https://www.wikidata.org/wiki/Q160472> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q165772
+<https://www.wikidata.org/wiki/Q165772> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q166177
+<https://www.wikidata.org/wiki/Q166177> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q170645
+<https://www.wikidata.org/wiki/Q170645> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q18656
+<https://www.wikidata.org/wiki/Q18656> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q186869
+<https://www.wikidata.org/wiki/Q186869> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q189571
+<https://www.wikidata.org/wiki/Q189571> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q20090225
+<https://www.wikidata.org/wiki/Q20090225> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q21621995
+<https://www.wikidata.org/wiki/Q21621995> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q23762815
+<https://www.wikidata.org/wiki/Q23762815> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q284163
+<https://www.wikidata.org/wiki/Q284163> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q28967995
+<https://www.wikidata.org/wiki/Q28967995> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q30055335
+<https://www.wikidata.org/wiki/Q30055335> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q373501
+<https://www.wikidata.org/wiki/Q373501> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q41420
+<https://www.wikidata.org/wiki/Q41420> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q483020
+<https://www.wikidata.org/wiki/Q483020> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q50383829
+<https://www.wikidata.org/wiki/Q50383829> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q50602
+<https://www.wikidata.org/wiki/Q50602> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q60439913
+<https://www.wikidata.org/wiki/Q60439913> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q615
+<https://www.wikidata.org/wiki/Q615> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q631
+<https://www.wikidata.org/wiki/Q631> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q66241169
+<https://www.wikidata.org/wiki/Q66241169> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q7156
+<https://www.wikidata.org/wiki/Q7156> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q8682
+<https://www.wikidata.org/wiki/Q8682> rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/wiki/Q96621465
+<https://www.wikidata.org/wiki/Q96621465> rdf:type owl:NamedIndividual .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+dc:contributor rdfs:comment "An entity responsible for making contributions to the resource."@en ;
+               rdfs:isDefinedBy dc: ;
+               rdfs:label "Contributor"@en ;
+               <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/contributor) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:coverage rdfs:comment "The spatial or temporal topic of the resource, spatial applicability of the resource, or jurisdiction under which the resource is relevant."@en ;
+            rdfs:isDefinedBy dc: ;
+            rdfs:label "Coverage"@en ;
+            <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/coverage) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:format rdfs:comment "The file format, physical medium, or dimensions of the resource."@en ;
+          rdfs:isDefinedBy dc: ;
+          rdfs:label "Format"@en ;
+          <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/format) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:identifier rdfs:comment "An unambiguous reference to the resource within a given context."@en ;
+              rdfs:isDefinedBy dc: ;
+              rdfs:label "Identifier"@en ;
+              <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/identifier) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:language rdfs:comment "A language of the resource."@en ;
+            rdfs:isDefinedBy dc: ;
+            rdfs:label "Language"@en ;
+            <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/language) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:publisher rdfs:comment "An entity responsible for making the resource available."@en ;
+             rdfs:isDefinedBy dc: ;
+             rdfs:label "Publisher"@en ;
+             <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/publisher) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:relation rdfs:comment "A related resource."@en ;
+            rdfs:isDefinedBy dc: ;
+            rdfs:label "Relation"@en ;
+            <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/relation) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:rights rdfs:comment "Information about rights held in and over the resource."@en ;
+          rdfs:isDefinedBy dc: ;
+          rdfs:label "Rights"@en ;
+          <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/rights) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:source rdfs:comment "A related resource from which the described resource is derived."@en ;
+          rdfs:isDefinedBy dc: ;
+          rdfs:label "Source"@en ;
+          <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/source) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:subject rdfs:comment "The topic of the resource."@en ;
+           rdfs:isDefinedBy dc: ;
+           rdfs:label "Subject"@en ;
+           <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/subject) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+dc:type rdfs:comment "The nature or genre of the resource."@en ;
+        rdfs:isDefinedBy dc: ;
+        rdfs:label "Type"@en ;
+        <http://www.w3.org/2004/02/skos/core#note> "A [second property](/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/type) with the same name as this property has been declared in the [dcterms: namespace](http://purl.org/dc/terms/).  See the Introduction to the document [DCMI Metadata Terms](/specifications/dublin-core/dcmi-terms/) for an explanation."@en .
+
+
+:Mondo rdfs:comment "concetto per definire competizione giocata a livello mondiale"@it ;
+       rdfs:label "Mondo"@it .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Africa
+                        :America
+                        :Antartide
+                        :Asia
+                        :Europa
+                        :Oceania
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Barcellona
+                        :Borussia_Dortmund
+                        :Inter
+                        :Juventus
+                        :Liverpool
+                        :Manchester_City
+                        :Manchester_United
+                        :Milan
+                        :Paris_Saint_Germain
+                        :Real_Madrid
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Barella
+                        :Bellingham
+                        :Haaland
+                        :Leao
+                        :Maguire
+                        :Mbappè
+                        :Messi
+                        :Ronaldo
+                        :Salah
+                        :Silva
+                        :Sommer
+                        :Ter_Stegen
+                        :Vlahovic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Europei_2016
+                        :Europei_2021
+                        :Mondiali_2018
+                        :Mondiali_2022
+                        <http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_21/22>
+                        <http://www.modsem.org/ontologies/FootballPlayerOntology#Champions_League_22/23>
+                        <http://www.modsem.org/ontologies/FootballPlayerOntology#Liga_18/19>
+                        <http://www.modsem.org/ontologies/FootballPlayerOntology#Liga_23/24>
+                        <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_08/09>
+                        <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_19/20>
+                        <http://www.modsem.org/ontologies/FootballPlayerOntology#Premier_League_22/23>
+                        <http://www.modsem.org/ontologies/FootballPlayerOntology#Serie_A_23/24>
+                      )
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
